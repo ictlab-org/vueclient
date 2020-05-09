@@ -1,23 +1,25 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawerRight" fixed right clipped app stateless>
-      <v-list dense>
-        <v-list-tile @click.stop="right = !right">
-          <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Open Temporary Drawer</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
+    <!--
+        <v-navigation-drawer v-model="drawerRight" fixed right clipped app stateless>
+          <v-list dense>
+            <v-list-tile @click.stop="right = !right">
+              <v-list-tile-action>
+                <v-icon>exit_to_app</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>Open Temporary Drawer</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-navigation-drawer>
+    -->
 
     <v-toolbar dense color="primary" dark fixed app>
       <v-toolbar-side-icon v-if="loggedIn" name="menu" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/">
-          <v-btn flat>GoBase</v-btn>
+          <v-btn flat>Lapor WFH</v-btn>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -26,22 +28,22 @@
         <AuthMenu/>
       </v-toolbar-items>
 
-      <v-toolbar-side-icon v-if="loggedIn" @click.stop="drawerRight = !drawerRight"></v-toolbar-side-icon>
+      <!--      <v-toolbar-side-icon v-if="loggedIn" @click.stop="drawerRight = !drawerRight"></v-toolbar-side-icon>-->
     </v-toolbar>
 
     <v-navigation-drawer v-model="drawer" fixed app>
-      <v-list dense>
-        <v-list-tile @click.stop="left = !left">
-          <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Open Temporary Drawer</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+      <!--      <v-list dense>
+              <v-list-tile @click.stop="left = !left">
+      &lt;!&ndash;          <v-list-tile-action>
+                  <v-icon>exit_to_app</v-icon>
+                </v-list-tile-action>&ndash;&gt;
+      &lt;!&ndash;          <v-list-tile-content>
+                  <v-list-tile-title>Open Temporary Drawer</v-list-tile-title>
+                </v-list-tile-content>&ndash;&gt;
+              </v-list-tile>
+            </v-list>-->
       <v-list v-if="hasRole('admin')" class="subheader">
-        <v-divider></v-divider>
+        <!--        <v-divider></v-divider>-->
         <v-subheader>Admin Panel</v-subheader>
         <v-list-tile to="/admin/accounts" name="accounts">
           <v-list-tile-action>
@@ -51,9 +53,32 @@
             <v-list-tile-title>Accounts</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-list-tile to="/report">
+          <v-list-tile-action>
+            <v-icon>account_box</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Report</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
       </v-list>
-      <v-list v-else>
-        <v-divider></v-divider>
+
+
+      <v-list v-if="hasRole('user')" class="subheader">
+        <v-subheader>Menu</v-subheader>
+        <v-list-tile to="/report">
+          <v-list-tile-action>
+            <v-icon>account_box</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Report</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+      </v-list>
+      <v-list v-if="!loggedIn">
         <v-subheader>Menu</v-subheader>
         <v-list-tile to="/login">
           <v-list-tile-action>
@@ -65,7 +90,6 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-
     <v-navigation-drawer v-model="left" temporary fixed></v-navigation-drawer>
     <v-content>
       <router-view/>
@@ -73,7 +97,7 @@
     <v-navigation-drawer v-model="right" right temporary fixed></v-navigation-drawer>
 
     <v-footer class="black--text pa-4" app>
-      <span>GoBase</span>
+      <span>Bagian PIK</span>
       <v-spacer></v-spacer>
       <span>&copy; 2019</span>
     </v-footer>

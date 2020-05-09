@@ -23,6 +23,14 @@ const ifHasRoleAdmin = (to, from, next) => {
   next(false)
 }
 
+const ifHasRoleUser = (to, from, next) => {
+  if (store.getters['hasRole']('user')) {
+    next()
+    return
+  }
+  next(false)
+}
+
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -78,6 +86,12 @@ const router = new Router({
           component: () => import('./components/admin/Accounts.vue')
         }
       ]
+    },
+    {
+      path: '/report',
+      // name: 'admin',
+      component: () =>
+        import(/* webpackChunkName: "admin" */ './components/report/Report.vue')
     }
   ]
 })
